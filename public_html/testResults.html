@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>JavaScript Test Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">     
+ <script>
+
+function chunkyMonkey(arr, size) {
+  // This is the same thing as chunkArrayInGroups... was used during testing
+  var aSize = Math.round(Math.abs(arr.length/size));
+  var i = 0;
+  var p = size;
+ var cSize = Math.abs(arr.length/size);
+ document.getElementById("oSizeResult").innerHTML = "oSize: " + cSize + " <br> aSize: " + aSize;
+
+  if( arr.length%size > 0  && cSize >= aSize){aSize++; }
+var myArr = new Array(aSize);
+ 
+for(r = 0; r < aSize; r++)
+{
+     myArr[r] = arr.slice(i,p);
+    i =i + size;
+    p =p + size;
+}
+document.getElementById("scriptLabel").innerHTML = document.getElementById("scriptLabel").innerHTML + ": Chunky Monkey ";
+document.getElementById("aSizeResult").innerHTML = "aSize: " + aSize;
+
+ myArr
+};
+function slasherFlick(arr, howMany) {
+  // it doesn't always pay to be first
+  document.getElementById("scriptLabel").innerHTML = document.getElementById("scriptLabel").innerHTML + ": Chunky Monkey ";
+  document.getElementById("aSizeResult").innerHTML = "aSize: " + arr.length.toString();
+  arr.splice(0,howMany);
+  arr.forEach(pArray);
+  return arr;
+}
+function mutation(arr) {
+  var aFirst = arr[0].toString();  
+  aFirst = aFirst.toLowerCase();
+  var aSecond = arr[1].toString();
+  aSecond = aSecond.toLowerCase();
+  var isMatch = true;
+  
+  for(n = 0; n < aSecond.length; n++){
+      
+     if(aFirst.indexOf(aSecond.substr(n,1).toString()) === -1){
+         isMatch = false;}
+    
+  }
+  alert(isMatch);
+  //return isMatch;
+}
+
+function bouncer(arr) {
+  // Don't show a false ID to this bouncer.
+   var myArr = arr.filter(function(item){
+        return Boolean(item) !== false;                   
+        });
+         
+         document.getElementById("jsResult").innerHTML = myArr.filter(function(item){ return item !== false && item !== "" 
+                     && item!== undefined && item !== null && item !== 0;});       
+ 
+}
+function destroyer(arr){
+   
+   var args = Array.prototype.slice.call(arguments, 1);
+   var myArr =  arr;
+   
+       if(args.length > 1){
+        document.getElementById("jsResult").innerHTML = arr.filter(function(item){
+   { return args.indexOf(item) == -1 }
+  });  
+    }else{
+         document.getElementById("jsResult").innerHTML =  myArr;
+    }    
+   
+}
+
+
+function pArray(item, index){     
+    document.getElementById("jsResult").innerHTML = document.getElementById("jsResult").innerHTML + "index[" + index + "]: " + item + "<br>";
+ }
+function printObject(arr){
+     for(i in arr){
+         document.getElementById("jsResult").innerHTML += Object.entries(arr[i]) + "<br>";
+    }
+} 
+function getFunctionResults(callback, args)
+{
+       document.getElementById("jsResult").innerHTML =  "Results: " + callback.apply(this, args);;
+}
+ function disableBTN(theButton){
+     theButton.disabled = true;
+ };
+ 
+ function getNum(num){
+   var mySymbol = [1 ,5 ,10 ,50 ,100 ,500 ,1000]; 
+   var myRoman = {1: "I", 5: "V", 10: "X", 50: "L", 100: "C", 500: "D", 1000: "M"};
+   var myArr = num.toString();
+   var myPos = "";
+   var aLower, aMax, prev, next, max;
+   var myConvert = [];
+   
+   for(p = 0; p < myArr.length ; p++){
+     
+     //get the position i.e. 10, 100, 100, etc
+     var myDigit = p + 1;  // pos 0 :1     
+     var myZero = myArr.length - myDigit;  // arraysize - p: 2 
+     var current = new Array(myZero);
+     var myCurrent;     
+     //convert to full number based on value and position
+     if(current.length > 0 && (p !== myArr.length - 1 )){         
+         current.fill(0);
+         myCurrent = myArr[p].concat(current.join(""));
+       }else{
+          myCurrent = myArr[p]; 
+       }     
+     // find the larges roman # value  
+    //var low = Math.abs(myArr[p]);
+  if( beforeLarger(myArr[p]) === true){        
+      max = findHighest(myCurrent, mySymbol);
+      next = mySymbol.indexOf(Math.abs(max)) + 1;
+      prev = mySymbol.indexOf(Math.abs(max));
+      aLower = myRoman[mySymbol[prev]] + "" + myRoman[mySymbol[next]];
+      aMax = max * Math.abs(myArr[p]);
+      myConvert.push(aLower);
+  }else if(afterLarger(myArr[p]) === true){      
+       max = findHighest(myCurrent, mySymbol);
+       next = mySymbol.indexOf(Math.abs(max));
+      prev = mySymbol.indexOf(Math.abs(max)) - 1;
+      aLower = myRoman[mySymbol[next]] + "" + myRoman[mySymbol[prev]];
+     aMax = max * Math.abs(myArr[p]);
+      myConvert.push(aLower);
+  } else if(isNine(myArr[p]) === true){      
+       max = findHighest(myCurrent, mySymbol);
+       next = mySymbol.indexOf(Math.abs(max)) + 1;
+      prev = mySymbol.indexOf(Math.abs(max)) - 1;
+      aLower = myRoman[mySymbol[prev]] + "" + myRoman[mySymbol[next]];
+     aMax = max * Math.abs(myArr[p]);
+      myConvert.push(aLower);
+  } else{ 
+      aMax = findHighest(myCurrent, mySymbol);
+      myConvert.push(myRoman[aMax]);
+  }    
+    var remain = myCurrent - aMax; 
+    var n = remain;
+    while(n > 0){
+        aMax = findHighest(n, mySymbol);
+        myConvert.push(myRoman[aMax]);
+        n = n - aMax;
+    }
+    // myPos +=  "myPos " +  p + " = " + myArr[p] + " Convert: " + myCurrent + " Roman: " + myConvert.join("").toString() + "<br>";
+ }//end for loop
+ 
+  myPos += "result: " + myConvert.join("").toString() + "<br>";
+ 
+ function findHighest(current, arr){
+     for(l = 0; l < arr.length; l++ ){
+        if(Math.abs(current) >= Math.abs(arr[l])){
+               var max = arr[l].toString();                              
+             }   
+     }
+     return max;     
+ }
+ function afterLarger(pos){
+     if( Math.abs(pos) === 6){
+         return true;
+     }else{
+         return false;
+     }     
+ }
+ function beforeLarger(pos){
+     if(Math.abs(pos) === 4){
+         return true;
+     }else{
+         return false;
+     }     
+ }
+ function isNine(pos){
+     if(Math.abs(pos) === 9){
+         return true;
+     }else{
+         return false;
+     } 
+ }
+ 
+   document.getElementById("jsResult").innerHTML = myPos;
+   
+ }
+ 
+ function checkArray(obj){    
+    
+    if( obj.hasOwnProperty(Object.keys(source))){          
+     return obj;      
+  }   
+}
+
+function testArray(obj){
+    return Object.entries(obj);
+}
+
+function getMatched(){
+    document.getElementById("jsResult").innerHTML = collection.filter(checkzzzArray);
+}
+function booWho(bool) {
+  // What is the new fad diet for ghost developers? The Boolean.
+    if(typeof(bool) === "boolean"){ bool = true;}else{bool = false;}
+    return bool;
+}
+
+//getMatched();
+
+</script>
+  
+<script type="text/javascript">
+var collection = [{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }];        
+var source  = { "a": 1, "b": 2 };     
+function whatIsInAName(){ 
+var ray = [];
+ray = whatName(collection, source);
+printObject(ray);
+}
+
+function ReplaceIt(){
+ var theString = myReplace("He is sleeping on the couch", "sleeping", "sitting");  
+ document.getElementById("jsResult").innerHTML = theString;
+}
+
+function getPigLatin(theWord){
+  var theString = translatePigLatin(theWord);
+  document.getElementById("jsResult").innerHTML = "Original: " + theWord + "<br>PigLatin: " + theString;
+}
+function getDnaPair(theStr){
+  var theString = pairElement(theStr);
+  document.getElementById("jsResult").innerHTML = "Original:" + theStr + "<br>DNA Pair: " + theString;
+}
+function findMissing(theStr){
+  var theString = fearNotLetter(theStr);
+  document.getElementById("jsResult").innerHTML = theString;
+}
+</script>
+</head>
+<body>
+  
+<div id="scriptLabel">Current Test DNA Pair script:</div><br>
+<div id="oSizeResult"></div><br>
+<div id="aSizeResult"></div><br>
+<div id="jsResult"></div><br>
+<!-- <button id="btn_update" onClick="getFunctionResults(destroyer, [[1, 2, 3, 1, 2, 3], 2, 3]);disableBTN(this);">Click Me </button>  -->
+<!--<button id="btn_update" onClick="getNum(2014)">Click Me </button> -->
+
+<button id="btn_update" onClick="getDnaPair('GCG')">Run DNA Pair</button>
+ <script type="text/javascript" src="includes/ks/chunckArrayInGroups.js"></script>
+      <script type="text/javascript" src="includes/js/WhereDoIBelong.js"></script>
+      <script type="text/javascript" src="includes/js/SeekAndDestroy.js"></script>
+       <script type="text/javascript" src="includes/js/SearchAndReplace.js"></script>
+      <script type="text/javascript" src="includes/js/WhatIsInAName.js"></script>   
+      <script type="text/javascript" src="includes/js/PigLatin.js"></script>   
+      <script type="text/javascript" src="includes/js/DNAparing.js"></script>   
+ </body>
+</html>

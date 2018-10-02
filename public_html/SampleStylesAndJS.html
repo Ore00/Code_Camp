@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2018 Linda McGraw
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+-->
+<html>
+    
+    <head>        
+       <link href="includes/css/Sample.css" rel="stylesheet">
+       <script type="text/javascript">
+           function getDnaPair(theStr){
+           var theString = pairElement(theStr);
+            document.getElementById("item2_Result").innerHTML += "Results:<br>Original:" + theStr + "<br>DNA Pair: " + theString;
+            }
+        function getPigLatin(){
+            var userInput = document.getElementById("item3_Input").value;    
+            if(userInput !== ""){
+                 var theString =  "<br>PigLatin:" + translatePigLatin(userInput);
+                 document.getElementById("item3_Result").className = "";
+            }else{
+                var theString = "<br>Error: Input can't be empty, enter a word to translate.";
+                document.getElementById("item3_Result").className += "invalidInput";
+            }
+
+            document.getElementById("item3_Result").innerHTML =  theString;
+         }
+         function getHappyNumbers(){
+             var userInput = document.getElementById("item4_Input").value;
+             if(userInput !== ""){
+                document.getElementById("item4_Result").className = "";                     
+                var theString =  "<br>Next five happy numbers = " +  sequenceOfHappyNumbers(userInput, 5);                      
+             }else{
+                var theString = "<br>Error: Input can't be empty, enter a number greater than 1.";
+                document.getElementById("item4_Result").className += "invalidInput";
+            }
+            document.getElementById("item4_Result").innerHTML =  theString;
+         }
+        </script>   
+        <title>Sample HTML, CSS, and JavaScript</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+       <div class="grid-container"> 
+            <div id="Header" class="item1">
+                <h2>Linda McGraw</h2>
+            </div>
+             <div id="Top" class="item5">
+                 <h3>Question # 1</h3>
+                 <h4>Colleague</h4>
+                 <p>JavaScript performance can be affected when a script is written in a way that causes the browser to work harder than it has to. One way to prevent this is to only use nested loops (for/while) when required. If a loop is required and the nested loop is based on an array size, declare the array size outside of the loop, so the system doesn't have to repeat determining the array size.</p>
+                 <h4>Layperson</h4>
+                 <p><strong>User Story:</strong>The company's home page has multiple items that are all inside of various boxes (divs that look like panels), the user needs to process only input from the box once the user click the button. </p>
+                 <p>In order to ensure each user experience is great, we can improve the website response time for each user by ensuring we properly identify only the item(s) applicable to the button the user clicked (no need to loop through each box on the webpage). This will allow us to locate the specific item(s) the user is interested in and run the necessary business process specified for the item(s).</p>
+             </div>
+            <div id="Left"  class="item2">
+                <h3>Question # 2</h3> 
+                <p> <strong>User Story:</strong> The DNA strand is missing the pairing element. Take each character, get its pair, and return the results as a 2d array. Note: this example will display the 2d array results as a string</p>
+                <h4>JavaScript Code: <i>DNA Pairing</i></h4>
+                <span id="item2_Details">
+                    Related JS: DNAparing.js 
+                </span>  <button id="btn_item4"  onClick="getDnaPair('GCG')">Run</button><br>
+                <span id="item2_Result"></span>   
+                <code>
+                        function pairElement(str) {  <br>
+                                var pairArray = [ {"A": "T"}, {"T": "A"},{"C": "G"},{"G":"C"}]; <br>
+                                var myArr = []; <br>
+                                var pairLength = pairArray.length; <br>
+                               str = str.split(""); <br>
+                               for(var char in str){  <br>
+                                  var newStr = [];  <br>
+                                  for(var x = 0; x < pairLength; x++){ <br>
+                                  var obj = pairArray[x]; <br>
+                                      if(obj.hasOwnProperty(str[char]) === true){      <br>   
+                                          newStr.push(str[char]); <br>
+                                          newStr.push(obj[str[char]]); <br>
+                                          myArr.push(newStr); <br>
+                                       }    
+                                   }   
+                               } <br>
+                               str = myArr; <br>
+                               return str; <br>
+                               }<br>
+                             console.log( pairElement("GCG").toString());
+                    </code>
+                <br>
+            </div>
+            <div id="Center" class="item3">
+                <h3>Question # 3</h3> 
+                <p> <strong>User Story:</strong> Translate the provided string to pig latin. Pig Latin takes the first consonant (or consonant cluster) of an English word, moves it to the end of the word and suffixes an "ay". If a word begins with a vowel you just add "way" to the end.</p>
+               
+                <h4>JavaScript Code: <i>Pig Latin</i></h4>
+                 <span id="item3_Details">
+                     Sample HTML:  SampleStylesAndJS.html<br>
+                     Sample CSS: Sample.css <br>
+                     Related JS: PigLatin.js<br>
+                 </span><br>                 
+                 Enter a word: <input id="item3_Input" type="text" maxlength="35" required> <button id="btn_item3" onClick="getPigLatin()">Run</button>
+                 <span id="item3_Result"></span><br><br>                
+            </div>
+            <div id="Right" class="item4">
+                <h3>Question # 4</h3> 
+                <p> <strong>User Story:</strong> Given a non-negative input value, print the next five "happy numbers" that are greater than the input number</p>
+               
+                <h4>JavaScript Code: <i>Happy Number</i></h4>
+                <span id="item4_Details">
+                        Related JS: HappyNumber.js<br>
+                </span><br>
+                Enter Input: <input id="item4_Input" type="number" required> <button id="btn_item4"  onClick="getHappyNumbers()">Run</button><br>
+                 <span id="item4_Result"></span>                
+            </div>             
+       </div>     
+        <script type="text/javascript" src="includes/js/DNAparing.js"></script>   
+        <script type="text/javascript" src="includes/js/PigLatin.js"></script>
+        <script type="text/javascript" src="includes/js/HappyNumber.js"></script>
+    </body>
+</html>

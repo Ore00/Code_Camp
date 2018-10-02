@@ -24,7 +24,10 @@ The user may fill out the form field any way they choose as long as it has the f
 555-555-5555
 5555555555
 1 555 555 5555
-For this challenge you will be presented with a string such as 800-692-7753 or 8oo-six427676;laskdjf. Your job is to validate or reject the US phone number based on any combination of the formats provided above. The area code is required. If the country code is provided, you must confirm that the country code is 1. Return true if the string is a valid US phone number; otherwise return false.
+For this challenge you will be presented with a string such as 800-692-7753 or 8oo-six427676;laskdjf. 
+Your job is to validate or reject the US phone number based on any combination of the formats provided above. 
+The area code is required. If the country code is provided, you must confirm that the country code is 1. 
+Return true if the string is a valid US phone number; otherwise return false.
 
 Remember to use Read-Search-Ask if you get stuck. Try to pair program. Write your own code.
 telephoneCheck("555-555-5555") should return a boolean.
@@ -56,7 +59,7 @@ telephoneCheck("(555-555-5555") should return false.
 telephoneCheck("(555)5(55?)-5555") should return false.
  */
 function telephoneCheck(str) {
- let casePrefix = /^([1]\s|[1])?[\(](?=\d{3}[\)](\s?\d{3}[-|\s]?\d{4})$)/;   
+ let casePrefix = /^([1]\s|[1])?[\(](?=\d{3}[\)](\s?\d{3}[-|\s]?\d{4})$)/;   //prefix with/without leading 1
  let caseOne = /^([1]\s|[1])?(?=\d{10}$)/;   //area code and 10 digits with/without 1/space
  let caseTwo = /^([1]\s|[1])?(?=\d{3}[-|\s]\d{3}[-|\s?]\d{4}$)/;  //area code and 10 digits w/ dash/space + country code
  
@@ -67,12 +70,12 @@ function telephoneCheck(str) {
  let isMatchTwo = caseTwo.test(str);
  //console.log(str.match(caseTwo));
  
-   if(isMatchOne == true || isMatchTwo == true || isPreFix == true){
+   if(isMatchOne === true || isMatchTwo === true || isPreFix === true){
        return true;}
    else{
        return false;}   
  }
-let result = telephoneCheck("1 234 567 5678");
+let result = telephoneCheck("234 567 5678");
 console.log(result);
 
 
