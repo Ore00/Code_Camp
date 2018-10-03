@@ -23,28 +23,28 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
        <script type="text/javascript">
            function getDnaPair(theStr){
            var theString = pairElement(theStr);
-            document.getElementById("item2_Result").innerHTML += "Results:<br>Original:" + theStr + "<br>DNA Pair: " + theString;
+           document.getElementById("item2_Result").className = "userResults";
+            document.getElementById("item2_Result").innerHTML += "Results:<br>Original:" + theStr + "<br>DNA Pair: " + theString;            
             }
         function getPigLatin(){
             var userInput = document.getElementById("item3_Input").value;    
             if(userInput !== ""){
                  var theString =  "<br>PigLatin:" + translatePigLatin(userInput);
-                 document.getElementById("item3_Result").className = "";
+                 document.getElementById("item3_Result").className = "userResults";
             }else{
                 var theString = "<br>Error: Input can't be empty, enter a word to translate.";
-                document.getElementById("item3_Result").className += "invalidInput";
+                document.getElementById("item3_Result").className = "invalidInput";
             }
-
             document.getElementById("item3_Result").innerHTML =  theString;
          }
          function getHappyNumbers(){
              var userInput = document.getElementById("item4_Input").value;
              if(userInput !== ""){
-                document.getElementById("item4_Result").className = "";                     
-                var theString =  "<br>Next five happy numbers = " +  sequenceOfHappyNumbers(userInput, 5);                      
+               var theString =  "<br>Next five happy numbers = " +  sequenceOfHappyNumbers(userInput, 5);     
+                document.getElementById("item4_Result").className = "userResults";  
              }else{
                 var theString = "<br>Error: Input can't be empty, enter a number greater than 1.";
-                document.getElementById("item4_Result").className += "invalidInput";
+                document.getElementById("item4_Result").className = "invalidInput";
             }
             document.getElementById("item4_Result").innerHTML =  theString;
          }

@@ -85,5 +85,3 @@ function sequenceOfHappyNumbers(startNum, howMany){
     }
     return happyArray;
 }
-//console.log("Happy = " +  isHappyNumber(7));
-//console.log("List of happy numbers: " + sequenceOfHappyNumbers(1, 5));
