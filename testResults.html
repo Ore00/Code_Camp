@@ -10,7 +10,16 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">     
  <script>
-
+//Old Check date
+function checkDate(dateValue) {
+    var date = new Date(dateValue);    
+    dobDay = date.getDate()+1;
+    dobMonth = date.getUTCMonth()+1;
+    dobYear = date.getFullYear();
+    newDate = dobYear + "-" + dobMonth  + "-" + dobDay + " 00:00:00";
+    
+    return newDate;
+}
 function chunkyMonkey(arr, size) {
   // This is the same thing as chunkArrayInGroups... was used during testing
   var aSize = Math.round(Math.abs(arr.length/size));
